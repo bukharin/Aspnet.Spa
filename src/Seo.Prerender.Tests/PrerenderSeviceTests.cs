@@ -18,9 +18,9 @@ namespace Seo.Prerender.Tests
             _renderer = new SnapshotRenderer(new TestPrerendererConfiguration());
         }
         [Test]
-        public void TestRenderer()
+        public void TestWithPrerendererIOIntegration()
         {
-            var result = _renderer.RenderPage(new Uri("https://www.google.com")).Result;
+            var result = _renderer.RenderPage("https://www.google.com").Result;
 
             Assert.NotNull(result.Content);
             Assert.IsTrue(result.Content.Contains("<title>Google</title>"));

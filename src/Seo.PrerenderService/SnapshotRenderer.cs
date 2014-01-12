@@ -18,7 +18,7 @@ namespace Seo.PrerenderService
             _client = new WebClient(configuration);
         }
 
-        public async Task<PrerenderResult> RenderPage(Uri url)
+        public async Task<PrerenderResult> RenderPage(string url)
         {
             if (url == null)
                 throw new ArgumentNullException("url");

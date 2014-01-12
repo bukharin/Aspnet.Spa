@@ -1,32 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Seo.PrerenderService.Web.Configuration;
 
 namespace Seo.PrerenderService.Web
 {
     public static class Utility
     {
-        private const string EscapedQueryString = "_escaped_fragment_";
+        private const string EscapedQueryStringParameterName = "_escaped_fragment_";
 
         public static bool IsRequestShouldBePrerendered(RequestParams requestParams, PrerenderConfig config)
         {
-            // Checke query string parameter
+            // Check '_escaped_fragment_' query string parameter
 
-            //TODO
+            if(!string.IsNullOrEmpty(requestParams.RequestUri.Query) &&
+                requestParams.RequestUri.Query.Contains(EscapedQueryStringParameterName))
+            {
+                return true;
+            }
 
-            // Check ignore files
+            // Check ignore file extentions
             var extention = Path.GetExtension(requestParams.RequestUri.AbsoluteUri);
             if (!string.IsNullOrEmpty(extention))
             {
-                for (int i = 0; i < config.Configuration.StaticExtentions.Count; i++)
+                for (int i = 0; i < config.Configuration.IgnoreExtentions.Count; i++)
                 {
-                    var extentionElm = config.Configuration.StaticExtentions[i];
-                    if (string.Compare(extentionElm.Extention, extention, StringComparison.OrdinalIgnoreCase) > 0)
+                    var extentionElm = config.Configuration.IgnoreExtentions[i];
+                    if (string.Equals(extentionElm.Extention, extention, StringComparison.OrdinalIgnoreCase))
                     {
                         return false;
                     }
@@ -46,13 +47,57 @@ namespace Seo.PrerenderService.Web
         }
 
 
-        public static string GetRequestUrl(Uri currentUri)
+        public static string GetSnapshotUrl(Uri currentUri)
         {
-            if(currentUri.Query.Contains(EscapedQueryString))
+            var query = currentUri.Query;
+            if (string.IsNullOrEmpty(query))
+                return currentUri.ToString();
+
+            if (!query.Contains(EscapedQueryStringParameterName))
+                return currentUri.ToString();
+
+            var queryString = ParseQueryString(query);
+            //Get current escaped fragment parameter value (#!/path/to/route)
+            var fragment = queryString[EscapedQueryStringParameterName];
+            //TODO support query string parameters in fragment
+            var builder = new UriBuilder(currentUri.Scheme, currentUri.Host, currentUri.Port)
+                              {
+                                  Query = GetQuery(queryString, EscapedQueryStringParameterName),
+                                  Path = fragment//replace current path with fragment
+                              };
+            return builder.Uri.ToString();
+        }
+
+
+        /// <summary>
+        ///     Parses query string into namevaluecollection, like HttpUtility.ParseQueryString
+        ///     but without dependency on System.Web.dll
+        /// </summary>
+        private static NameValueCollection ParseQueryString(string queryString)
+        {
+            var queryParameters = new NameValueCollection();
+            string[] querySegments = queryString.Split('&');
+            foreach (string segment in querySegments)
             {
-                
+                string[] parts = segment.Split('=');
+                if (parts.Length > 0)
+                {
+                    string key = parts[0].Trim(new[] { '?', ' ' });
+                    string val = parts[1].Trim();
+
+                    queryParameters.Add(key, val);
+                }
             }
-            return "";//TODO
+            return queryParameters;
+        }
+
+        private static string GetQuery(NameValueCollection queryString, string except)
+        {
+            var array = (from key in queryString.AllKeys
+                         from value in queryString.GetValues(key)
+                         where key != except
+                         select string.Format("{0}={1}", key, value)).ToArray();
+            return string.Join("&", array);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Owin;
@@ -29,10 +29,22 @@ namespace Seo.PrerenderService
                 var rendererConfig = new WebConfigPrerenderServiceConfiguration(config);
                 var renderer = new SnapshotRenderer(rendererConfig);
 
-                //TODO process escaped url
-                var response = await renderer.RenderPage(context.Request.Uri);
 
-                context.Response.Write(response.Content);
+                var snapshotUrl = Utility.GetSnapshotUrl(context.Request.Uri);
+                //render page html
+                PrerenderResult response;
+                try
+                {
+                    response = await renderer.RenderPage(snapshotUrl);
+                }
+                catch (WebException e)
+                {
+                    context.Response.Write(string.Format("Failed to prerender request '{0}'. Error message: '{1}'. Stack trace: '{2}'", snapshotUrl, e.Message, e.StackTrace));
+                    context.Response.StatusCode = 500;
+                    return;
+                }
+
+                await context.Response.WriteAsync(response.Content);
                 context.Response.ContentType = "text/html";
                 context.Response.StatusCode = (int)response.StatusCode;
             }

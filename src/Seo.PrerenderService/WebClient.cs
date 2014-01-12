@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Seo.PrerenderService
@@ -13,17 +14,12 @@ namespace Seo.PrerenderService
             _config = config;
         }
 
-        public async Task<WebResponse> Get(Uri uri)
+        public async Task<WebResponse> Get(string uri)
         {
-            Uri endpoint;
-            if (!Uri.TryCreate(new Uri(_config.ServiceUrl), uri.AbsoluteUri, out endpoint))
-            {
-                throw new WebException(string.Format("Unable to create url to request service: serviceUrl='{0}', requestUrl: '{1}'",_config.ServiceUrl, uri.AbsoluteUri));
-            }
+            var serviceUrl = _config.ServiceUrl.EndsWith("/") ? _config.ServiceUrl : _config.ServiceUrl + "/";
+            var webRequest = (HttpWebRequest)WebRequest.Create(serviceUrl + uri);
 
-            var webRequest = (HttpWebRequest)WebRequest.Create(endpoint);
             webRequest.Method = "GET";
-
             if (!string.IsNullOrEmpty(_config.ProxyUrl))
             {
                 webRequest.Proxy = new WebProxy(_config.ProxyUrl);

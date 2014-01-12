@@ -103,6 +103,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpaMiddleware.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

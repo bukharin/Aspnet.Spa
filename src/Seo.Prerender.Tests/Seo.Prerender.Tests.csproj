@@ -34,6 +34,7 @@
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,11 +46,16 @@
     <Compile Include="PrerenderSeviceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPrerendererConfiguration.cs" />
+    <Compile Include="UtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Seo.PrerenderService.Web\Seo.PrerenderService.Web.csproj">
+      <Project>{C94A2514-84C3-4067-8D1C-DD81AFF11F43}</Project>
+      <Name>Seo.PrerenderService.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Seo.PrerenderService\Seo.PrerenderService.csproj">
       <Project>{843C155F-4388-4BEA-931E-8B14CAA97545}</Project>
       <Name>Seo.PrerenderService</Name>

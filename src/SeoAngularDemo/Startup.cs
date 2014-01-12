@@ -14,7 +14,11 @@ namespace SeoAngularDemo
             WebApiConfig.Configure(app, config);
 
             app.UsePrerenderer();
+
+            app.Use<SpaMiddleware>();
+
         }
+         
 
     }
 }

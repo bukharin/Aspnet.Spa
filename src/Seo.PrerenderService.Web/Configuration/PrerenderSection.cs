@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Seo.PrerenderService.Web.Configuration
 {
@@ -6,7 +8,7 @@ namespace Seo.PrerenderService.Web.Configuration
     {
         public PrerenderSection()
         {
-            this.StaticExtentions = new StaticExtentionsColletion();
+            this.IgnoreExtentions = new IgnoreExtentionsColletion();
             this.Crawlers = new CrawlersColletion();
             this.Endpoint = new EndpointElement { Url = "http://service.prerender.io" };
         }
@@ -24,16 +26,16 @@ namespace Seo.PrerenderService.Web.Configuration
             }
         }
 
-        [ConfigurationProperty("static-extentions", IsRequired = false)]
-        public StaticExtentionsColletion StaticExtentions
+        [ConfigurationProperty("ignoreExtentions", IsRequired = false)]
+        public IgnoreExtentionsColletion IgnoreExtentions
         {
             get
             {
-                return ((StaticExtentionsColletion)(this["static-extentions"]));
+                return ((IgnoreExtentionsColletion)(this["ignoreExtentions"]));
             }
             set
             {
-                this["static-extentions"] = value;
+                this["ignoreExtentions"] = value;
             }
         }
 
@@ -65,7 +67,7 @@ namespace Seo.PrerenderService.Web.Configuration
                 }
             }
 
-            [ConfigurationProperty("proxy", IsRequired = true)]
+            [ConfigurationProperty("proxy", IsRequired = false)]
             public string Proxy
             {
                 get
@@ -85,13 +87,13 @@ namespace Seo.PrerenderService.Web.Configuration
         {
             public CrawlersColletion()
             {
-                BaseAdd(new CrawlerElement { UserAgent = "googlebot", Match = "/googlebot/i" });
-                BaseAdd(new CrawlerElement { UserAgent = "yandexbot", Match = "/YandexBot/i" });
+                BaseAdd(new CrawlerElement { UserAgent = "googlebot"});
+                BaseAdd(new CrawlerElement { UserAgent = "yandexbot" });
                 BaseAdd(new CrawlerElement { UserAgent = "bingbot" });
-                BaseAdd(new CrawlerElement { UserAgent = "baiduspider" });
-                BaseAdd(new CrawlerElement { UserAgent = "facebookexternalhit" });
-                BaseAdd(new CrawlerElement { UserAgent = "twitterbot" });
-                BaseAdd(new CrawlerElement { UserAgent = "yahoo" });
+                BaseAdd(new CrawlerElement { UserAgent = "^baiduspider$" });
+                BaseAdd(new CrawlerElement { UserAgent = "^facebookexternalhit$" });
+                BaseAdd(new CrawlerElement { UserAgent = "^twitterbot$" });
+                BaseAdd(new CrawlerElement { UserAgent = "^yahoo$" });
             }
 
             public CrawlerElement this[int i]
@@ -113,10 +115,10 @@ namespace Seo.PrerenderService.Web.Configuration
             }
         }
 
-        [ConfigurationCollection(typeof(StaticExtentionElement))]
-        public sealed partial class StaticExtentionsColletion : ConfigurationElementCollection
+        [ConfigurationCollection(typeof(IgnoreExtentionElement))]
+        public sealed partial class IgnoreExtentionsColletion : ConfigurationElementCollection
         {
-            public StaticExtentionsColletion()
+            public IgnoreExtentionsColletion()
             {
                 var extentions = new[]
                                      {
@@ -128,26 +130,26 @@ namespace Seo.PrerenderService.Web.Configuration
                                      };
                 foreach (var extention in extentions)
                 {
-                    BaseAdd(new StaticExtentionElement { Extention = extention });
+                    BaseAdd(new IgnoreExtentionElement { Extention = extention });
                 }
             }
 
-            public StaticExtentionElement this[int i]
+            public IgnoreExtentionElement this[int i]
             {
                 get
                 {
-                    return ((StaticExtentionElement)(BaseGet(i)));
+                    return ((IgnoreExtentionElement)(BaseGet(i)));
                 }
             }
 
             protected override ConfigurationElement CreateNewElement()
             {
-                return new StaticExtentionElement();
+                return new IgnoreExtentionElement();
             }
 
             protected override object GetElementKey(ConfigurationElement element)
             {
-                return ((StaticExtentionElement)element).Extention;
+                return ((IgnoreExtentionElement)element).Extention;
             }
         }
 
@@ -166,31 +168,18 @@ namespace Seo.PrerenderService.Web.Configuration
                 }
             }
 
-            [ConfigurationProperty("match", IsRequired = false)]
-            public string Match
-            {
-                get
-                {
-                    return this["match"].ToString();
-                }
-                set
-                {
-                    this["match"] = value;
-                }
-            }
-
             /// <summary>
             ///     Determine if specified user agent match this config element rule
             /// </summary>
             /// <param name="userAgent">Useragent to determine</param>
-            /// <returns></returns>
             public bool IsMatch(string userAgent)
             {
-                return false;//TODO
+                var regEx = new Regex(UserAgent, RegexOptions.IgnoreCase);
+                return regEx.IsMatch(userAgent);
             }
         }
 
-        public sealed class StaticExtentionElement : ConfigurationElement
+        public sealed class IgnoreExtentionElement : ConfigurationElement
         {
             [ConfigurationProperty("extention", IsRequired = true)]
             public string Extention
