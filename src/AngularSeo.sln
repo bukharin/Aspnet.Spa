@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeoAngularDemo", "SeoAngularDemo\SeoAngularDemo.csproj", "{CC6AE4B1-20B9-4E96-861B-67B043F5F8DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seo.PrerenderService.Owin", "Seo.PrerenderService.Owin\Seo.PrerenderService.Owin.csproj", "{B4A0BE66-85F4-4D13-8123-FD86306CEBC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prerender", "Prerender", "{CE2CDC41-B051-4C7F-9976-53C66E2ED012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seo.PrerenderService", "Seo.PrerenderService\Seo.PrerenderService.csproj", "{843C155F-4388-4BEA-931E-8B14CAA97545}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seo.Prerender.Tests", "Seo.Prerender.Tests\Seo.Prerender.Tests.csproj", "{30551D24-B898-46BF-A67C-E718C1B22A62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seo.PrerenderService.Web", "Seo.PrerenderService.Web\Seo.PrerenderService.Web.csproj", "{C94A2514-84C3-4067-8D1C-DD81AFF11F43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC6AE4B1-20B9-4E96-861B-67B043F5F8DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6AE4B1-20B9-4E96-861B-67B043F5F8DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6AE4B1-20B9-4E96-861B-67B043F5F8DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6AE4B1-20B9-4E96-861B-67B043F5F8DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A0BE66-85F4-4D13-8123-FD86306CEBC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A0BE66-85F4-4D13-8123-FD86306CEBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A0BE66-85F4-4D13-8123-FD86306CEBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A0BE66-85F4-4D13-8123-FD86306CEBC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{843C155F-4388-4BEA-931E-8B14CAA97545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{843C155F-4388-4BEA-931E-8B14CAA97545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{843C155F-4388-4BEA-931E-8B14CAA97545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{843C155F-4388-4BEA-931E-8B14CAA97545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30551D24-B898-46BF-A67C-E718C1B22A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30551D24-B898-46BF-A67C-E718C1B22A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30551D24-B898-46BF-A67C-E718C1B22A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30551D24-B898-46BF-A67C-E718C1B22A62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C94A2514-84C3-4067-8D1C-DD81AFF11F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C94A2514-84C3-4067-8D1C-DD81AFF11F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C94A2514-84C3-4067-8D1C-DD81AFF11F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C94A2514-84C3-4067-8D1C-DD81AFF11F43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B4A0BE66-85F4-4D13-8123-FD86306CEBC1} = {CE2CDC41-B051-4C7F-9976-53C66E2ED012}
+		{843C155F-4388-4BEA-931E-8B14CAA97545} = {CE2CDC41-B051-4C7F-9976-53C66E2ED012}
+		{30551D24-B898-46BF-A67C-E718C1B22A62} = {CE2CDC41-B051-4C7F-9976-53C66E2ED012}
+		{C94A2514-84C3-4067-8D1C-DD81AFF11F43} = {CE2CDC41-B051-4C7F-9976-53C66E2ED012}
+	EndGlobalSection
+EndGlobal
