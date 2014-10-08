@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PrerenderService.Owin</id>
+    <version>1.0.0</version>
+    <title>SPA PrerenderService for OWIN</title>
+    <authors>Vyacheslav Bukharin</authors>
+    <projectUrl>https://github.com/bukharin/Aspnet.Spa</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package provides functionality to prerender pages of your single page application, based on OWIN. Uses prerender.io (PhantomJS) service.</description>
+    <tags>ASP.NET SPA CSharp</tags>
+
+    <dependencies>
+      <group>
+        <dependency id="Owin" version="1.0.0" />
+        <dependency id="PrerenderService" version="1.0.0" />
+      </group>
+    </dependencies>
+    
+  </metadata>
+
+  <files>
+    <file src="..\build\PrerenderService.Owin.dll" target="lib\net40" />
+  </files>
+</package>

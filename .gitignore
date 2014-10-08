@@ -29,4 +29,5 @@ _ReSharper*/
 [Pp]ackages
 *.ssms_suo
 *.backup
-SkbKontur.Staff.Site/App_Data/ImageCache/*
+push_packages.bat
+build/*

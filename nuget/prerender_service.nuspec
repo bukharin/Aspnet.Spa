@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PrerenderService</id>
+    <version>1.0.0</version>
+    <title>SPA PrerenderService</title>
+    <authors>Vyacheslav Bukharin</authors>
+    <projectUrl>https://github.com/bukharin/Aspnet.Spa</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package provides functionality to prerender pages of your single page application, using prerender.io (PhantomJS) service.</description>
+    <tags>ASP.NET SPA CSharp</tags>
+  </metadata>
+  <files>
+    <file src="..\build\PrerenderService.dll" target="lib\net40" />
+  </files>
+</package>
