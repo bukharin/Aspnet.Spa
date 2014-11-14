@@ -35,12 +35,14 @@ namespace PrerenderService
             }
 
             // Check crawler user agent
-
-            for (int i = 0; i < config.Configuration.Crawlers.Count; i++)
+            if (requestParams.UserAgent != null)
             {
-                PrerenderSection.CrawlerElement crawlerElm = config.Configuration.Crawlers[i];
-                if (crawlerElm.IsMatch(requestParams.UserAgent))
-                    return true;
+                for (int i = 0; i < config.Configuration.Crawlers.Count; i++)
+                {
+                    PrerenderSection.CrawlerElement crawlerElm = config.Configuration.Crawlers[i];
+                    if (crawlerElm.IsMatch(requestParams.UserAgent))
+                        return true;
+                }
             }
 
             return false;
