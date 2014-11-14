@@ -61,6 +61,8 @@ namespace PrerenderService
             NameValueCollection queryString = ParseQueryString(query);
             //Get current escaped fragment parameter value (#!/path/to/route)
             string fragment = queryString[EscapedQueryStringParameterName];
+            if (fragment == "")
+                fragment = currentUri.AbsolutePath;
             //TODO support query string parameters in fragment
             var builder = new UriBuilder(currentUri.Scheme, currentUri.Host, currentUri.Port)
                               {
