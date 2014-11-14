@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Configuration;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PrerenderService.Service
@@ -16,6 +17,10 @@ namespace PrerenderService.Service
         {
             string serviceUrl = _config.ServiceUrl.EndsWith("/") ? _config.ServiceUrl : _config.ServiceUrl + "/";
             var webRequest = (HttpWebRequest) WebRequest.Create(serviceUrl + uri);
+
+            var token = System.Environment.GetEnvironmentVariable("Prerender-Token") ?? ConfigurationManager.AppSettings["Prerender-Token"];
+            if (!string.IsNullOrEmpty(token))
+                webRequest.Headers.Add("X-Prerender-Token", token);
 
             webRequest.Method = "GET";
             if (!string.IsNullOrEmpty(_config.ProxyUrl))
