@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Web;
 using PrerenderService.Configuration;
 
 namespace PrerenderService
@@ -58,7 +59,7 @@ namespace PrerenderService
             if (!query.Contains(EscapedQueryStringParameterName))
                 return currentUri.ToString();
 
-            NameValueCollection queryString = ParseQueryString(query);
+            NameValueCollection queryString = HttpUtility.ParseQueryString(query);
             //Get current escaped fragment parameter value (#!/path/to/route)
             string fragment = queryString[EscapedQueryStringParameterName];
             if (fragment == "")
@@ -72,28 +73,6 @@ namespace PrerenderService
             return builder.Uri.ToString();
         }
 
-
-        /// <summary>
-        ///     Parses query string into namevaluecollection, like HttpUtility.ParseQueryString
-        ///     but without dependency on System.Web.dll
-        /// </summary>
-        private static NameValueCollection ParseQueryString(string queryString)
-        {
-            var queryParameters = new NameValueCollection();
-            string[] querySegments = queryString.Split('&');
-            foreach (string segment in querySegments)
-            {
-                string[] parts = segment.Split('=');
-                if (parts.Length > 0)
-                {
-                    string key = parts[0].Trim(new[] {'?', ' '});
-                    string val = parts[1].Trim();
-
-                    queryParameters.Add(key, val);
-                }
-            }
-            return queryParameters;
-        }
 
         private static string GetQuery(NameValueCollection queryString, string except)
         {
