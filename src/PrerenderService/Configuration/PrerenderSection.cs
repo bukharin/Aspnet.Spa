@@ -65,12 +65,21 @@ namespace PrerenderService.Configuration
             public CrawlersColletion()
             {
                 BaseAdd(new CrawlerElement {UserAgent = "googlebot"});
+
                 BaseAdd(new CrawlerElement {UserAgent = "yandexbot"});
                 BaseAdd(new CrawlerElement {UserAgent = "bingbot"});
                 BaseAdd(new CrawlerElement {UserAgent = "^baiduspider$"});
+                BaseAdd(new CrawlerElement {UserAgent = @"^baiduspider\+"});
                 BaseAdd(new CrawlerElement {UserAgent = "^facebookexternalhit$"});
                 BaseAdd(new CrawlerElement {UserAgent = "^twitterbot$"});
                 BaseAdd(new CrawlerElement {UserAgent = "^yahoo$"});
+
+                // Google Adsense
+                BaseAdd(new CrawlerElement {UserAgent = "adsbot-google"});
+                BaseAdd(new CrawlerElement {UserAgent = "mediapartners-google"});
+                
+                // Wayback Machine
+                BaseAdd(new CrawlerElement {UserAgent = "ia_archiver"});
             }
 
             public CrawlerElement this[int i]
