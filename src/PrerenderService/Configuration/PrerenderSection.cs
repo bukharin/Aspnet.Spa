@@ -74,6 +74,9 @@ namespace PrerenderService.Configuration
                 BaseAdd(new CrawlerElement {UserAgent = "^twitterbot$"});
                 BaseAdd(new CrawlerElement {UserAgent = "^yahoo$"});
 
+                // Google plus
+                BaseAdd(new CrawlerElement {UserAgent = @"^Google \(\+"});
+
                 // Google Adsense
                 BaseAdd(new CrawlerElement {UserAgent = "adsbot-google"});
                 BaseAdd(new CrawlerElement {UserAgent = "mediapartners-google"});
