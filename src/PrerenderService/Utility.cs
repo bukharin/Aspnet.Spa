@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Web;
 using PrerenderService.Configuration;
 
 namespace PrerenderService
@@ -65,19 +66,20 @@ namespace PrerenderService
                 fragment = currentUri.AbsolutePath;
             //TODO support query string parameters in fragment
             var builder = new UriBuilder(currentUri.Scheme, currentUri.Host, currentUri.Port)
-            {
-                Query = GetQuery(queryString, EscapedQueryStringParameterName),
-                Path = fragment //replace current path with fragment
-            };
+                              {
+                                  Query = GetQuery(queryString, EscapedQueryStringParameterName),
+                                  Path = fragment //replace current path with fragment
+                              };
             return builder.Uri.ToString();
         }
+
 
         private static string GetQuery(NameValueCollection queryString, string except)
         {
             string[] array = (from key in queryString.AllKeys
-                from value in queryString.GetValues(key)
-                where key != except
-                select string.Format("{0}={1}", key, value)).ToArray();
+                              from value in queryString.GetValues(key)
+                              where key != except
+                              select string.Format("{0}={1}", key, value)).ToArray();
             return string.Join("&", array);
         }
     }
