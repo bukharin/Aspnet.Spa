@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Web;
 using PrerenderService.Configuration;
 
 namespace PrerenderService
