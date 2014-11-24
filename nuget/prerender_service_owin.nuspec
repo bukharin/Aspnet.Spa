@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PrerenderService.Owin</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>SPA PrerenderService for OWIN</title>
     <authors>Vyacheslav Bukharin</authors>
     <projectUrl>https://github.com/bukharin/Aspnet.Spa</projectUrl>
