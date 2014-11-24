@@ -46,6 +46,7 @@ namespace PrerenderService.Owin
                 await context.Response.WriteAsync(response.Content);
                 context.Response.ContentType = "text/html";
                 context.Response.StatusCode = (int) response.StatusCode;
+                context.Set("HTML_SNAPSHOT_MIDDLEWARE", true);
             }
             else
             {

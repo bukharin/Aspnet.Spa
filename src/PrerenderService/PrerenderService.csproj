@@ -38,6 +38,8 @@
   <ItemGroup>
     <Compile Include="Configuration\PrerenderConfig.cs" />
     <Compile Include="Configuration\PrerenderSection.cs" />
+    <Compile Include="HttpEncoder.cs" />
+    <Compile Include="HttpUtility.cs" />
     <Compile Include="RequestParams.cs" />
     <Compile Include="Service\PrerenderResult.cs" />
     <Compile Include="Service\IPrerenderServiceConfiguration.cs" />

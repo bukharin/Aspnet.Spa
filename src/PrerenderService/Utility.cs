@@ -35,12 +35,14 @@ namespace PrerenderService
             }
 
             // Check crawler user agent
-
-            for (int i = 0; i < config.Configuration.Crawlers.Count; i++)
+            if (requestParams.UserAgent != null)
             {
-                PrerenderSection.CrawlerElement crawlerElm = config.Configuration.Crawlers[i];
-                if (crawlerElm.IsMatch(requestParams.UserAgent))
-                    return true;
+                for (int i = 0; i < config.Configuration.Crawlers.Count; i++)
+                {
+                    PrerenderSection.CrawlerElement crawlerElm = config.Configuration.Crawlers[i];
+                    if (crawlerElm.IsMatch(requestParams.UserAgent))
+                        return true;
+                }
             }
 
             return false;
@@ -56,9 +58,11 @@ namespace PrerenderService
             if (!query.Contains(EscapedQueryStringParameterName))
                 return currentUri.ToString();
 
-            NameValueCollection queryString = ParseQueryString(query);
+            NameValueCollection queryString = HttpUtility.ParseQueryString(query);
             //Get current escaped fragment parameter value (#!/path/to/route)
             string fragment = queryString[EscapedQueryStringParameterName];
+            if (fragment == "")
+                fragment = currentUri.AbsolutePath;
             //TODO support query string parameters in fragment
             var builder = new UriBuilder(currentUri.Scheme, currentUri.Host, currentUri.Port)
                               {
@@ -68,28 +72,6 @@ namespace PrerenderService
             return builder.Uri.ToString();
         }
 
-
-        /// <summary>
-        ///     Parses query string into namevaluecollection, like HttpUtility.ParseQueryString
-        ///     but without dependency on System.Web.dll
-        /// </summary>
-        private static NameValueCollection ParseQueryString(string queryString)
-        {
-            var queryParameters = new NameValueCollection();
-            string[] querySegments = queryString.Split('&');
-            foreach (string segment in querySegments)
-            {
-                string[] parts = segment.Split('=');
-                if (parts.Length > 0)
-                {
-                    string key = parts[0].Trim(new[] {'?', ' '});
-                    string val = parts[1].Trim();
-
-                    queryParameters.Add(key, val);
-                }
-            }
-            return queryParameters;
-        }
 
         private static string GetQuery(NameValueCollection queryString, string except)
         {
