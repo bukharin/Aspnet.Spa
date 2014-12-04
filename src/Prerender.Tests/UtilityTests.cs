@@ -86,7 +86,7 @@ namespace Prerender.Tests
         public void TestGetCorrectSnapshotUrlWithEscaped()
         {
             string testRequestUri = "http://localhost:4434/?_escaped_fragment_=/about";
-            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri));
+            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri), true);
             Assert.AreEqual(url, "http://localhost:4434/about");
         }
 
@@ -94,7 +94,7 @@ namespace Prerender.Tests
         public void TestGetCorrectSnapshotUrlWithEscapedAndOtherQueryString()
         {
             string testRequestUri = "http://localhost:4434/?_escaped_fragment_=/about&myvalue=3";
-            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri));
+            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri), true);
             Assert.AreEqual(url, "http://localhost:4434/about?myvalue=3");
         }
 
@@ -102,7 +102,7 @@ namespace Prerender.Tests
         public void TestGetCorrectSnapshotUrlWithoutEscaped()
         {
             string testRequestUri = "http://localhost:4434/path/to/url";
-            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri));
+            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri), true);
             Assert.AreEqual(url, testRequestUri);
         }
 
@@ -110,7 +110,7 @@ namespace Prerender.Tests
         public void TestGetCorrectSnapshotUrlWithoutEscapedAndHttps()
         {
             string testRequestUri = "https://localhost/path/to/url";
-            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri));
+            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri), true);
             Assert.AreEqual(url, testRequestUri);
         }
 
@@ -118,7 +118,7 @@ namespace Prerender.Tests
         public void TestGetCorrectSnapshotUrlWithoutEscapedAndPort()
         {
             string testRequestUri = "http://localhost/path/to/url";
-            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri));
+            string url = Utility.GetSnapshotUrl(new Uri(testRequestUri), true);
             Assert.AreEqual(url, testRequestUri);
         }
     }

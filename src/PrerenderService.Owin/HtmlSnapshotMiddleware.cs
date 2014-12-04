@@ -8,9 +8,12 @@ namespace PrerenderService.Owin
 {
     public class HtmlSnapshotMiddleware : OwinMiddleware
     {
-        public HtmlSnapshotMiddleware(OwinMiddleware next)
+        private readonly bool _useHtml5Mode;
+
+        public HtmlSnapshotMiddleware(OwinMiddleware next, bool useHtml5Mode = false)
             : base(next)
         {
+            _useHtml5Mode = useHtml5Mode;
         }
 
         public override async Task Invoke(IOwinContext context)
@@ -27,7 +30,7 @@ namespace PrerenderService.Owin
                 var renderer = new SnapshotRenderer(rendererConfig);
 
 
-                string snapshotUrl = Utility.GetSnapshotUrl(context.Request.Uri);
+                string snapshotUrl = Utility.GetSnapshotUrl(context.Request.Uri, _useHtml5Mode);
                 //render page html
                 PrerenderResult response;
                 try

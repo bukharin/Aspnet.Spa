@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web;
 using PrerenderService.Configuration;
 using PrerenderService.Service;
@@ -42,7 +43,8 @@ namespace PrerenderService.Web
                 var rendererConfig = new PrerenderServiceConfiguration(_config);
                 var renderer = new SnapshotRenderer(rendererConfig);
 
-                string snapshotUrl = Utility.GetSnapshotUrl(httpContext.Request.Url);
+                string snapshotUrl = Utility.GetSnapshotUrl(httpContext.Request.Url,
+                    string.Equals(ConfigurationManager.AppSettings["UseHtml5Mode"], "true"));
                 //render page html
                 PrerenderResult response;
                 try

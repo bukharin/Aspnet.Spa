@@ -12,7 +12,7 @@ namespace Spa.Demo.Owin
             var config = new HttpConfiguration();
             WebApiConfig.Configure(app, config);
 
-            app.UsePrerenderer();
+            app.UsePrerenderer(true);
 
             app.Use<SpaMiddleware>();
         }
