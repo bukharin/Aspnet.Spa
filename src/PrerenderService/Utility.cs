@@ -49,7 +49,7 @@ namespace PrerenderService
         }
 
 
-        public static string GetSnapshotUrl(Uri currentUri)
+        public static string GetSnapshotUrl(Uri currentUri, bool useHtml5Mode)
         {
             string query = currentUri.Query;
             if (string.IsNullOrEmpty(query))
@@ -67,7 +67,7 @@ namespace PrerenderService
             var builder = new UriBuilder(currentUri.Scheme, currentUri.Host, currentUri.Port)
                               {
                                   Query = GetQuery(queryString, EscapedQueryStringParameterName),
-                                  Path = fragment //replace current path with fragment
+                                  Path = useHtml5Mode ? fragment : @"#!/" + fragment //replace current path with fragment
                               };
             return builder.Uri.ToString();
         }
