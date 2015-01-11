@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PrerenderService</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>SPA PrerenderService</title>
     <authors>Vyacheslav Bukharin</authors>
     <projectUrl>https://github.com/bukharin/Aspnet.Spa</projectUrl>
