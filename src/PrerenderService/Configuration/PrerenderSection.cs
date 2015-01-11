@@ -70,9 +70,9 @@ namespace PrerenderService.Configuration
                 BaseAdd(new CrawlerElement {UserAgent = "bingbot"});
                 BaseAdd(new CrawlerElement {UserAgent = "^baiduspider$"});
                 BaseAdd(new CrawlerElement {UserAgent = @"^baiduspider\+"});
-                BaseAdd(new CrawlerElement {UserAgent = "^facebookexternalhit$"});
-                BaseAdd(new CrawlerElement {UserAgent = "^twitterbot$"});
-                BaseAdd(new CrawlerElement {UserAgent = "^yahoo$"});
+                BaseAdd(new CrawlerElement {UserAgent = "^facebookexternalhit"});
+                BaseAdd(new CrawlerElement {UserAgent = "^twitterbot"});
+                BaseAdd(new CrawlerElement {UserAgent = "^yahoo"});
 
                 // Google plus
                 BaseAdd(new CrawlerElement {UserAgent = @"^Google \(\+"});
